@@ -48,8 +48,8 @@ for (const n of out) {
     else {
       falha++;
       const c = x.error && x.error.code;
-      if (c === "messaging/registration-token-not-registered" || c === "messaging/invalid-registration-token" || c === "messaging/invalid-argument") ruins.add(tokens[i]);
-      else console.log("Falha:", c, x.error && x.error.message);
+      console.log("Falha:", n.tel.slice(-4), c, x.error && x.error.message);
+      if (c === "messaging/registration-token-not-registered" || c === "messaging/invalid-registration-token") ruins.add(tokens[i]);
     }
   });
 }
@@ -68,8 +68,9 @@ for (const d of (await db.collection("testes").get()).docs) {
       fcmOptions: { link: SITE }
     }
   });
-  r.responses.forEach((y, i) => { if (!y.success) { const c = y.error && y.error.code; if (c === "messaging/registration-token-not-registered" || c === "messaging/invalid-registration-token" || c === "messaging/invalid-argument") ruins.add(tokens[i]); else console.log("Falha no teste:", c); } });
-  await d.ref.update({ st: r.successCount ? "ok" : "falha", done: now.getTime(), n: r.successCount });
+  const errs = [];
+  r.responses.forEach((y, i) => { if (!y.success) { const c = y.error && y.error.code; errs.push(c + ": " + (y.error && y.error.message || "").slice(0, 160)); console.log("Falha no teste:", x.tel.slice(-4), c, y.error && y.error.message); if (c === "messaging/registration-token-not-registered" || c === "messaging/invalid-registration-token") ruins.add(tokens[i]); } else console.log("Teste entregue:", x.tel.slice(-4)); });
+  await d.ref.update({ st: r.successCount ? "ok" : "falha", done: now.getTime(), n: r.successCount, err: errs.join(" | ").slice(0, 500) });
   testes++;
 }
 for (const t of ruins) await db.collection("push").doc(t).delete();
