@@ -53,10 +53,29 @@ for (const n of out) {
     }
   });
 }
+// testes pedidos pelo administrador (sai na hora, mesmo à noite)
+let testes = 0;
+for (const d of (await db.collection("testes").get()).docs) {
+  const x = d.data();
+  if (x.st) { if (now.getTime() - (x.done || x.at || 0) > 7 * 864e5) await d.ref.delete(); continue; }
+  const tokens = tk[x.tel] || [];
+  if (!tokens.length) { await d.ref.update({ st: "sem", done: now.getTime() }); continue; }
+  if (SECO) { console.log("[teste]", x.tel.slice(-4), "notificação de teste"); continue; }
+  const r = await admin.messaging().sendEachForMulticast({
+    tokens,
+    webpush: {
+      notification: { title: "Notificação de teste 🔔", body: `Tudo pronto${x.nm ? ", " + x.nm : ""}! As notificações do JNI Voluntários estão funcionando neste celular.`, icon: SITE + "icons/icon-192.png", badge: SITE + "icons/icon-192.png", tag: "teste-" + d.id },
+      fcmOptions: { link: SITE }
+    }
+  });
+  r.responses.forEach((y, i) => { if (!y.success) { const c = y.error && y.error.code; if (c === "messaging/registration-token-not-registered" || c === "messaging/invalid-registration-token" || c === "messaging/invalid-argument") ruins.add(tokens[i]); else console.log("Falha no teste:", c); } });
+  await d.ref.update({ st: r.successCount ? "ok" : "falha", done: now.getTime(), n: r.successCount });
+  testes++;
+}
 for (const t of ruins) await db.collection("push").doc(t).delete();
 
 if (!SECO) {
   const novo = podar(Object.assign({}, sent, marcar), now);
   await rRef.set({ v: 2, sent: JSON.stringify(novo), at: now.getTime() });
 }
-console.log(`Enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
+console.log(`Testes: ${testes} · enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
