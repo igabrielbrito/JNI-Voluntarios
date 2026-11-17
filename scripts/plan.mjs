@@ -4,11 +4,13 @@
 
 const TIPO = { culto: "Culto", disc: "Discipulado", com: "Comunhão", ext: "Evento externo", trein: "Treinamento", camp: "Acampamento" };
 const HORA = { culto: "20:00", disc: "18:00", com: "22:00" };
+const FIM = { culto: "22:00", disc: "19:30", com: "00:30" };
 const EQUIPE = { fo: "Fotografia", st: "Storys" };
 const MES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
 const SEM = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+const SEMANA = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
-export const LEMBRETE_HORA = 18;          // lembrete da véspera a partir das 18h
+export const LEMBRETE_HORA = 19;          // lembretes de 3 dias antes e da véspera a partir das 19h
 export const SILENCIO = [22, 8];          // não manda aviso de escala entre 22h e 8h
 const DIA = 864e5;
 
@@ -21,7 +23,12 @@ const isoAdd = (iso, n) => new Date(Date.parse(iso + "T12:00:00Z") + n * DIA).to
 const dig = t => String(t || "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "");
 const fmtD = iso => { const d = new Date(iso + "T12:00:00Z"); return `${SEM[d.getUTCDay()]}, ${d.getUTCDate()} ${MES[d.getUTCMonth()]}`; };
 const fmtH = t => t ? t.slice(0, 2).replace(/^0/, "") + "h" + (t.slice(3) === "00" ? "" : t.slice(3)) : "";
-const nome = e => e.ti || TIPO[e.t] || "Evento";
+const nome = e => {
+  const tp = TIPO[e.t] || "Evento", ti = String(e.ti || "").trim();
+  if (!ti) return tp;
+  if (["culto", "disc", "com"].includes(e.t) && !ti.toLowerCase().includes(tp.toLowerCase())) return `${tp} ${ti}`;
+  return ti;
+};
 const primeiro = p => String(p.name || "").trim().split(/\s+/)[0] || "Alguém";
 
 function papeis(team, k) {
@@ -53,70 +60,109 @@ function lideres(state) {
   return L;
 }
 
+const minutos = t => { const m = /^(\d{1,2}):(\d{2})/.exec(t || ""); return m ? +m[1] * 60 + +m[2] : null; };
+// Evento de dia inteiro: sem horário de início ou com 8 horas ou mais. Nele não vai o aviso de 3h antes.
+export function diaInteiro(e) {
+  const ini = minutos(e.st || HORA[e.t]);
+  if (ini == null) return true;
+  let fim = minutos(e.en || FIM[e.t]);
+  if (fim == null) return false;
+  if (fim <= ini) fim += 24 * 60;
+  return fim - ini >= 8 * 60;
+}
+
 export function plan(state, sent, now, init) {
   const { iso: hoje, h } = sp(now);
-  const amanha = isoAdd(hoje, 1);
+  const minAgora = Math.floor(((now.getTime() - 3 * 3600e3) % DIA + DIA) % DIA / 6e4);
+  const em = n => isoAdd(hoje, n);
   const quieto = h >= SILENCIO[0] || h < SILENCIO[1];
-  const out = [];           // {tel, title, body, key}
-  const marcar = {};        // chaves para registrar como enviadas
+  const out = [];
+  const marcar = {};
   const L = lideres(state);
+  const T = now.getTime();
   const add = (key, tels, title, body) => {
     if (sent[key] || marcar[key]) return;
-    marcar[key] = now.getTime();
+    marcar[key] = T;
     if (init) return;
     for (const tel of tels) if (tel) out.push({ tel, title, body, key });
   };
+  const multi = Object.keys(state.teams || {}).length > 1;
 
   for (const [k, team] of Object.entries(state.teams || {})) {
     const P = {};
     for (const p of team.people || []) P[p.id] = p;
     const [r1, r2] = papeis(team, k);
-    const multi = Object.keys(state.teams).length > 1;
+    const eq = multi ? " · " + (EQUIPE[k] || k) : "";
     for (const e of team.events || []) {
       if (!e || !e.d || e.d < hoje) continue;
-      const hora = fmtH(e.st || HORA[e.t] || "");
+      const hIni = e.st || HORA[e.t] || "";
+      const hora = fmtH(hIni);
       const quando = fmtD(e.d) + (hora ? " · " + hora : "");
-      const vagas = [["f", r1, e.f || []], ["e", r2, e.e || []]];
       const pap = {};
-      for (const [, papel, ids] of vagas) for (const pid of ids) (pap[pid] = pap[pid] || []).includes(papel) || pap[pid].push(papel);
-      for (const [slot, papel, ids] of vagas) {
-        for (const pid of ids) {
-          const p = P[pid];
-          if (!p || p.status === "saiu") continue;
-          const tel = dig(p.tel);
-          // 1. você foi escalado
-          const kEsc = `esc|${k}|${e.id}|${pid}|${slot}`;
-          let agora = false;
-          if (!sent[kEsc] && !(quieto && !init)) {
-            agora = !init;
-            add(kEsc, [tel], "Você foi escalado 📸", `${nome(e)} · ${quando} · ${papel}${multi ? " (" + (EQUIPE[k] || k) + ")" : ""}. Toque para confirmar.`);
-          }
-          // 2. lembrete na véspera
-          if (e.d === amanha && h >= LEMBRETE_HORA && (!quieto || init)) {
-            const kLem = `lem|${k}|${e.id}|${pid}`;
-            const conf = e.cf && e.cf[pid];
-            // acabou de receber o aviso de escala: não manda o lembrete junto
-            add(kLem, agora ? [] : [tel], "Amanhã você serve 🙌", `${nome(e)}${hora ? " às " + hora : ""} · ${pap[pid].join(" e ")}.${conf ? "" : " Ainda falta confirmar."}`);
-          }
+      for (const [papel, ids] of [[r1, e.f || []], [r2, e.e || []]]) for (const pid of ids) (pap[pid] = pap[pid] || []).includes(papel) || pap[pid].push(papel);
+      for (const pid of Object.keys(pap)) {
+        const p = P[pid];
+        if (!p || p.status === "saiu") continue;
+        const tel = dig(p.tel);
+        const conf = !!(e.cf && e.cf[pid]);
+        const funcao = pap[pid].join(" e ");
+        const base = `${k}|${e.id}|${pid}`;
+        let agora = false;
+
+        // 1. pedido: você foi escalado (fora do silêncio)
+        const kEsc = `esc|${base}`;
+        if (!sent[kEsc] && !(quieto && !init)) {
+          agora = !init;
+          add(kEsc, [tel], "Você foi escalado 📸", `${nome(e)} · ${quando} · ${funcao}${eq}. Toque para confirmar ou recusar.`);
+        }
+        const tEsc = sent[kEsc] || marcar[kEsc];
+
+        // 2. cobrança semanal enquanto não responder (só das 10h às 21h, e se o evento ainda está a mais de 3 dias)
+        if (!conf && tEsc && !init && h >= 10 && h < 21 && e.d > em(3)) {
+          const sem = Math.floor((T - tEsc) / (7 * DIA));
+          if (sem >= 1) add(`nag|${base}|${sem}`, [tel], "Falta a sua resposta ⏳", `Você foi escalado para ${nome(e)} · ${quando} · ${funcao} e ainda não respondeu. Toque para confirmar ou recusar.`);
+        }
+
+        // 3. três dias antes, a partir das 19h
+        if (e.d === em(3) && h >= LEMBRETE_HORA && (!quieto || init)) {
+          add(`d3|${base}`, agora ? [] : [tel],
+            conf ? "Lembrete da escala 📅" : "Você ainda não respondeu ⏳",
+            conf ? `${SEMANA[new Date(e.d + "T12:00:00Z").getUTCDay()]} você serve: ${nome(e)}${hora ? " às " + hora : ""} · ${funcao}.`
+                 : `Você está escalado para ${nome(e)} · ${quando} · ${funcao} e ainda não confirmou. Toque para responder.`);
+        }
+
+        // 4. véspera, a partir das 19h
+        if (e.d === em(1) && h >= LEMBRETE_HORA && (!quieto || init)) {
+          add(`d1|${base}`, agora ? [] : [tel], "Amanhã você serve 🙌", `${nome(e)}${hora ? " às " + hora : ""} · ${funcao}.${conf ? "" : " Ainda falta confirmar."}`);
+        }
+
+        // 5. no dia, 3 horas antes (não vale para evento de dia inteiro)
+        const ini = minutos(hIni);
+        if (e.d === hoje && ini != null && !diaInteiro(e) && minAgora >= ini - 180 && minAgora < ini) {
+          add(`d0|${base}`, [tel], `Hoje às ${hora} 📸`, `${nome(e)} · ${funcao}. Bom serviço!`);
         }
       }
-      // 3. para a liderança: confirmou / recusou (feito pela própria pessoa)
+
+      // 6. liderança: alguém confirmou pelo app
       for (const [pid, v] of Object.entries(e.cfs || {})) {
         const p = P[pid]; if (!p || !v) continue;
-        const kc = `cf|${k}|${e.id}|${pid}|${v.at || ""}`;
         const tels = [...(L[k] || [])].filter(t => t !== dig(p.tel));
-        if (!(quieto && !init)) add(kc, tels, `${primeiro(p)} confirmou ✅`, `${nome(e)} · ${fmtD(e.d)}${multi ? " · " + (EQUIPE[k] || k) : ""}`);
+        if (!(quieto && !init)) add(`cf|${k}|${e.id}|${pid}|${v.at || ""}`, tels, `${primeiro(p)} confirmou ✅`, `${nome(e)} · ${fmtD(e.d)}${eq}`);
       }
-    }
-    // recusas ficam também em eventos já sem a pessoa (rx); não dependem da vaga
-    for (const e of team.events || []) {
-      if (!e || !e.d || e.d < hoje) continue;
+      // 7. liderança: alguém recusou
       for (const [pid, v] of Object.entries(e.rx || {})) {
         const p = P[pid]; if (!p || !v) continue;
-        const kr = `rx|${k}|${e.id}|${pid}|${v.at || ""}`;
         const tels = [...(L[k] || [])].filter(t => t !== dig(p.tel));
-        if (!(quieto && !init)) add(kr, tels, `${primeiro(p)} recusou ⚠️`, `${nome(e)} · ${fmtD(e.d)}${v.m ? " · “" + String(v.m).slice(0, 80) + "”" : ""}. Toque para escalar outra pessoa.`);
+        if (!(quieto && !init)) add(`rx|${k}|${e.id}|${pid}|${v.at || ""}`, tels, `${primeiro(p)} recusou ⚠️`, `${nome(e)} · ${fmtD(e.d)}${v.m ? " · “" + String(v.m).slice(0, 80) + "”" : ""}. Toque para escalar outra pessoa.`);
       }
+    }
+
+    // 8. feedback enviado para a pessoa
+    for (const f of team.fbs || []) {
+      if (!f || !f.id || !f.pid) continue;
+      if (f.d && f.d < em(-14)) continue;
+      const p = P[f.pid]; if (!p) continue;
+      if (!(quieto && !init)) add(`fb|${k}|${f.id}`, [dig(p.tel)], "Seu feedback chegou 💬", `${(EQUIPE[k] || "JNI")}: ${primeiro(p)}, seu feedback já está disponível. Toque para ver.`);
     }
   }
   return { out, marcar };

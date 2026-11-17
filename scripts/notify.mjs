@@ -20,7 +20,7 @@ const rRef = db.doc("robot/state");
 const rSnap = await rRef.get();
 const robo = rSnap.exists ? rSnap.data() : {};
 const sent = robo.sent ? JSON.parse(robo.sent) : {};
-const init = !rSnap.exists;
+const init = !rSnap.exists || robo.v !== 2;   // v2: formato novo das chaves
 const now = new Date();
 
 const { out, marcar } = plan(state, sent, now, init);
@@ -40,7 +40,7 @@ for (const n of out) {
     tokens,
     webpush: {
       notification: { title: n.title, body: n.body, icon: SITE + "icons/icon-192.png", badge: SITE + "icons/icon-192.png", tag: n.key },
-      fcmOptions: { link: SITE }
+      fcmOptions: { link: SITE + (n.key.startsWith("fb|") ? "?abrir=feedback" : "") }
     }
   });
   r.responses.forEach((x, i) => {
@@ -57,6 +57,6 @@ for (const t of ruins) await db.collection("push").doc(t).delete();
 
 if (!SECO) {
   const novo = podar(Object.assign({}, sent, marcar), now);
-  await rRef.set({ sent: JSON.stringify(novo), at: now.getTime() });
+  await rRef.set({ v: 2, sent: JSON.stringify(novo), at: now.getTime() });
 }
 console.log(`Enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
