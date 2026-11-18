@@ -78,9 +78,19 @@ for (const d of (await db.collection("testes").get()).docs) {
 }
 for (const t of ruins) await db.collection("push").doc(t).delete();
 
+// cópia de segurança: uma por dia, últimos 30 dias
+let bkl = Array.isArray(robo.bkl) ? robo.bkl : [];
+const hojeBk = sp(now).iso;
+if (!SECO && !bkl.includes(hojeBk)) {
+  await db.doc("backups/" + hojeBk).set({ j: typeof raw.j === "string" ? raw.j : JSON.stringify(state), at: now.getTime() });
+  bkl = [...bkl, hojeBk].sort();
+  while (bkl.length > 30) { const velho = bkl.shift(); await db.doc("backups/" + velho).delete(); }
+  console.log("Cópia de segurança do dia salva:", hojeBk);
+}
+
 if (!SECO) {
   const novo = podar(Object.assign({}, sent, marcar), now);
-  await rRef.set({ v: 2, sent: JSON.stringify(novo), at: now.getTime() });
+  await rRef.set({ v: 2, sent: JSON.stringify(novo), at: now.getTime(), bkl });
 }
 console.log(`Testes: ${testes} · enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
 

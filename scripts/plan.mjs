@@ -71,6 +71,18 @@ export function diaInteiro(e) {
   return fim - ini >= 8 * 60;
 }
 
+// quem chamar no lugar: ativo, livre no dia, não escalado nem recusou, com menos escalas no mês
+export function sugestoes(team, e, fora) {
+  const mes = e.d.slice(0, 7), cont = {};
+  for (const x of team.events || []) if (x.d && x.d.slice(0, 7) === mes) for (const id of [...(x.f || []), ...(x.e || [])]) cont[id] = (cont[id] || 0) + 1;
+  const ocup = new Set([...(e.f || []), ...(e.e || []), ...Object.keys(e.rx || {}), fora]);
+  for (const x of team.events || []) if (x.d === e.d && x.id !== e.id) for (const id of [...(x.f || []), ...(x.e || [])]) ocup.add(id);
+  return (team.people || [])
+    .filter(p => (p.status || "ativo") === "ativo" && !p.lider && !ocup.has(p.id) && !(p.off || []).some(o => o && o.a <= e.d && e.d <= (o.b || o.a)))
+    .sort((a, b) => (cont[a.id] || 0) - (cont[b.id] || 0) || String(a.name).localeCompare(String(b.name)))
+    .slice(0, 3).map(primeiro);
+}
+
 export function plan(state, sent, now, init) {
   const { iso: hoje, h } = sp(now);
   const minAgora = Math.floor(((now.getTime() - 3 * 3600e3) % DIA + DIA) % DIA / 6e4);
@@ -120,7 +132,9 @@ export function plan(state, sent, now, init) {
         // 2. cobrança semanal enquanto não responder (só das 10h às 21h, e se o evento ainda está a mais de 3 dias)
         if (!conf && tEsc && !init && h >= 10 && h < 21 && e.d > em(3)) {
           const sem = Math.floor((T - tEsc) / (7 * DIA));
-          if (sem >= 1) add(`nag|${base}|${sem}`, [tel], "Falta a sua resposta ⏳", `Você foi escalado para ${nome(e)} · ${quando} · ${funcao} e ainda não respondeu. Toque para confirmar ou recusar.`);
+          if (sem >= 1 && sem <= 3) add(`nag|${base}|${sem}`, [tel], "Falta a sua resposta ⏳", `Você foi escalado para ${nome(e)} · ${quando} · ${funcao} e ainda não respondeu. Toque para confirmar ou recusar.`);
+          // depois de 3 cobranças, avisa a liderança uma vez
+          if (sem >= 4) add(`sem|${base}`, [...(L[k] || [])].filter(t => t !== tel), `${primeiro(p)} não responde ⏳`, `${nome(e)} · ${quando} · ${funcao}. Já foram 3 lembretes sem resposta. Vale chamar no WhatsApp.`);
         }
 
         // 3. três dias antes, a partir das 19h
@@ -153,7 +167,8 @@ export function plan(state, sent, now, init) {
       for (const [pid, v] of Object.entries(e.rx || {})) {
         const p = P[pid]; if (!p || !v) continue;
         const tels = [...(L[k] || [])].filter(t => t !== dig(p.tel));
-        if (!(quieto && !init)) add(`rx|${k}|${e.id}|${pid}|${v.at || ""}`, tels, `${primeiro(p)} recusou ⚠️`, `${nome(e)} · ${fmtD(e.d)}${v.m ? " · “" + String(v.m).slice(0, 80) + "”" : ""}. Toque para escalar outra pessoa.`);
+        const sug = sugestoes(team, e, pid);
+        if (!(quieto && !init)) add(`rx|${k}|${e.id}|${pid}|${v.at || ""}`, tels, `${primeiro(p)} recusou ⚠️`, `${nome(e)} · ${fmtD(e.d)}${v.m ? " · “" + String(v.m).slice(0, 80) + "”" : ""}.${sug.length ? " Sugestões: " + sug.join(", ") + "." : ""} Toque para escalar outra pessoa.`);
       }
     }
 
