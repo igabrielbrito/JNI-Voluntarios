@@ -13,10 +13,10 @@ UID:fo-e20-antualpa@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20261017T230000Z
 DTEND:20261018T010000Z
-SUMMARY:⏳ Culto · Foto
-DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
- r ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igabrielbri
- to.github.io/JNI-Voluntarios/
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:Culto · 20h–22h\n\nStatus: pendente. Abra o app para confir
+ mar ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igabrielb
+ rito.github.io/JNI-Voluntarios/
 STATUS:TENTATIVE
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
@@ -26,12 +26,12 @@ UID:fo-e30-antualpa@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20261121T230000Z
 DTEND:20261122T010000Z
-SUMMARY:✅ Culto · Foto
-DESCRIPTION:Escala confirmada.\n\nFunção: Foto · Fotografia\n\nEscalado
- s junto:\n• Gabriel Brito · Edição (Fotografia) ✅\n• Gusta · Ed
- ição (Fotografia) ✅\n• Katy · Captação (Storys) ⏳\n• Noemi  
- · Edição (Storys) ⏳\n\nApp: https://igabrielbrito.github.io/JNI-Volu
- ntarios/
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:Culto · 20h–22h\n\nStatus: confirmada\n\nFunção: Foto · 
+ Fotografia\n\nEscalados junto:\n- Gabriel Brito · Edição (Fotografia) 
+ · confirmado\n- Gusta · Edição (Fotografia) · confirmado\n- Katy · 
+ Captação (Storys) · pendente\n- Noemi  · Edição (Storys) · pendent
+ e\n\nApp: https://igabrielbrito.github.io/JNI-Voluntarios/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/

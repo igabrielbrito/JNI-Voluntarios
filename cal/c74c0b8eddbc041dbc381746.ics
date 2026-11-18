@@ -13,10 +13,10 @@ UID:fo-e14-gabs@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20260927T010000Z
 DTEND:20260927T033000Z
-SUMMARY:⏳ Comunhão · Foto
-DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
- r ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igabrielbri
- to.github.io/JNI-Voluntarios/
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:Comunhão · 22h–0h30\n\nStatus: pendente. Abra o app para c
+ onfirmar ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igab
+ rielbrito.github.io/JNI-Voluntarios/
 STATUS:TENTATIVE
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
@@ -26,10 +26,10 @@ UID:fo-e1793977666254-gabs@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261107
 DTEND;VALUE=DATE:20261108
-SUMMARY:✅ Integração JNI · Foto
-DESCRIPTION:Escala confirmada.\n\nFunção: Foto · Fotografia\n\nEscalado
- s junto:\n• Gabriel Brito · Edição (Fotografia) ✅\n\nApp: https://
- igabrielbrito.github.io/JNI-Voluntarios/
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:Integração JNI\n\nStatus: confirmada\n\nFunção: Foto · Fo
+ tografia\n\nEscalados junto:\n- Gabriel Brito · Edição (Fotografia) ·
+  confirmado\n\nApp: https://igabrielbrito.github.io/JNI-Voluntarios/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
@@ -39,13 +39,14 @@ UID:fo-e35-gabs@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20261208T120000Z
 DTEND:20261208T203000Z
-SUMMARY:✅ Natal Feliz (Manaim) · Foto
-DESCRIPTION:Escala confirmada.\n\nFunção: Foto · Fotografia\n\nEscalado
- s junto:\n• Gusta · Foto (Fotografia) ✅\n• Isa Venerando · Foto (
- Fotografia) ✅\n• Gabriel Brito · Edição (Fotografia) ✅\n• Juli
- a Borborema · Captação (Storys) ⏳\n• Noemi  · Captação (Storys)
-  ⏳\n• Noemi  · Edição (Storys) ⏳\n\nApp: https://igabrielbrito.g
- ithub.io/JNI-Voluntarios/
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:Natal Feliz (Manaim) · 9h–17h30\n\nStatus: confirmada\n\nFu
+ nção: Foto · Fotografia\n\nEscalados junto:\n- Gusta · Foto (Fotograf
+ ia) · confirmado\n- Isa Venerando · Foto (Fotografia) · confirmado\n- 
+ Gabriel Brito · Edição (Fotografia) · confirmado\n- Julia Borborema 
+ · Captação (Storys) · pendente\n- Noemi  · Captação (Storys) · pe
+ ndente\n- Noemi  · Edição (Storys) · pendente\n\nApp: https://igabrie
+ lbrito.github.io/JNI-Voluntarios/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
