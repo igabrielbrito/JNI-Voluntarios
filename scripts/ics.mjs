@@ -1,5 +1,5 @@
 // Gera a agenda (.ics) de cada pessoa a partir do app/state. Função pura.
-// Uma agenda por celular, juntando as equipes. Pendente aparece como "⏳", confirmada como "✅".
+// Uma agenda por celular, juntando as equipes. Título "JNI | Criatividade | Fotografia"; status na descrição.
 // Recusada sai da agenda.
 
 const TIPO = { culto: "Culto", disc: "Discipulado", com: "Comunhão", ext: "Evento externo", trein: "Treinamento", camp: "Acampamento" };
@@ -56,16 +56,19 @@ export function agendas(state, hojeIso, site) {
           for (const p of t2.people || []) P2[p.id] = p;
           for (const [rl, ids] of [[a, e2.f || []], [b, e2.e || []]]) for (const id of ids) {
             const p = P2[id]; if (!p || (k2 === k && id === pid)) continue;
-            junto.push(`${p.name} · ${rl}${multi ? " (" + (EQUIPE[k2] || k2) + ")" : ""}${e2.cf && e2.cf[id] ? " ✅" : " ⏳"}`);
+            junto.push(`${p.name} · ${rl}${multi ? " (" + (EQUIPE[k2] || k2) + ")" : ""} · ${e2.cf && e2.cf[id] ? "confirmado" : "pendente"}`);
           }
         }
         const d = DEF[e.t] || [];
         const st = e.st || d[0] || "", en = e.en || d[1] || "";
-        const titulo = `${conf ? "✅" : "⏳"} ${nome(e)} · ${fn.join(" e ")}${multi && g.recs.length > 1 ? " · " + (EQUIPE[k] || k) : ""}`;
+        const semG = !(team.cfg && team.cfg.g) && k !== "st";
+        const titulo = "JNI | Criatividade | " + fn.map(x => semG && x === "Foto" ? "Fotografia" : x).join("/");
+        const hr = st ? st.slice(0, 2).replace(/^0/, "") + "h" + (st.slice(3) === "00" ? "" : st.slice(3)) + (en ? "–" + en.slice(0, 2).replace(/^0/, "") + "h" + (en.slice(3) === "00" ? "" : en.slice(3)) : "") : "";
         const desc = [
-          conf ? "Escala confirmada." : "PENDENTE: você ainda não confirmou. Abra o app para confirmar ou recusar.",
+          nome(e) + (hr ? " · " + hr : ""),
+          "Status: " + (conf ? "confirmada" : "pendente. Abra o app para confirmar ou recusar."),
           `Função: ${fn.join(" e ")}${multi ? " · " + (EQUIPE[k] || k) : ""}`,
-          junto.length ? "Escalados junto:\n" + junto.map(x => "• " + x).join("\n") : "",
+          junto.length ? "Escalados junto:\n" + junto.map(x => "- " + x).join("\n") : "",
           site ? "App: " + site : ""
         ].filter(Boolean).join("\n\n");
         const L = ["BEGIN:VEVENT", `UID:${k}-${e.id}-${pid}@jni-voluntarios`, `DTSTAMP:${stamp}`];
