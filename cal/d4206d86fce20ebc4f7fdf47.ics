@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//JNI//Voluntarios//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:JNI · Minhas escalas
+X-WR-TIMEZONE:America/Sao_Paulo
+X-WR-CALDESC:Escalas de Katy no JNI Voluntários
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-PUBLISHED-TTL:PT1H
+BEGIN:VEVENT
+UID:st-e30-p1794668995981@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20261121T230000Z
+DTEND:20261122T010000Z
+SUMMARY:⏳ Culto · Captação
+DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
+ r ou recusar.\n\nFunção: Captação · Storys\n\nEscalados junto:\n• 
+ Gabriela Antualpa · Foto (Fotografia) ✅\n• Gabriel Brito · Edição
+  (Fotografia) ✅\n• Gusta · Edição (Fotografia) ✅\n• Noemi  · 
+ Edição (Storys) ⏳\n\nApp: https://igabrielbrito.github.io/JNI-Volunta
+ rios/
+STATUS:TENTATIVE
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+END:VCALENDAR

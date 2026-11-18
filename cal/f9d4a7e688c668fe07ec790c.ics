@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//JNI//Voluntarios//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:JNI · Minhas escalas
+X-WR-TIMEZONE:America/Sao_Paulo
+X-WR-CALDESC:Escalas de Aline Lucato no JNI Voluntários
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-PUBLISHED-TTL:PT1H
+BEGIN:VEVENT
+UID:fo-e15-aline@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20261003T210000Z
+DTEND:20261003T223000Z
+SUMMARY:⏳ Discipulado · Foto
+DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
+ r ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igabrielbri
+ to.github.io/JNI-Voluntarios/
+STATUS:TENTATIVE
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+BEGIN:VEVENT
+UID:fo-e29-aline@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20261121T210000Z
+DTEND:20261121T223000Z
+SUMMARY:⏳ Discipulado · Foto
+DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
+ r ou recusar.\n\nFunção: Foto · Fotografia\n\nEscalados junto:\n• Ga
+ briel Brito · Edição (Fotografia) ✅\n• Thayna · Captação (Story
+ s) ⏳\n• Noemi  · Edição (Storys) ⏳\n\nApp: https://igabrielbrito
+ .github.io/JNI-Voluntarios/
+STATUS:TENTATIVE
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+END:VCALENDAR

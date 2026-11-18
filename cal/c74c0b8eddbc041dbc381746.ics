@@ -1,0 +1,53 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//JNI//Voluntarios//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:JNI · Minhas escalas
+X-WR-TIMEZONE:America/Sao_Paulo
+X-WR-CALDESC:Escalas de Gabriel Alves no JNI Voluntários
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-PUBLISHED-TTL:PT1H
+BEGIN:VEVENT
+UID:fo-e14-gabs@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20260927T010000Z
+DTEND:20260927T033000Z
+SUMMARY:⏳ Comunhão · Foto
+DESCRIPTION:PENDENTE: você ainda não confirmou. Abra o app para confirma
+ r ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igabrielbri
+ to.github.io/JNI-Voluntarios/
+STATUS:TENTATIVE
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+BEGIN:VEVENT
+UID:fo-e1793977666254-gabs@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261108
+SUMMARY:✅ Integração JNI · Foto
+DESCRIPTION:Escala confirmada.\n\nFunção: Foto · Fotografia\n\nEscalado
+ s junto:\n• Gabriel Brito · Edição (Fotografia) ✅\n\nApp: https://
+ igabrielbrito.github.io/JNI-Voluntarios/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+BEGIN:VEVENT
+UID:fo-e35-gabs@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20261208T120000Z
+DTEND:20261208T203000Z
+SUMMARY:✅ Natal Feliz (Manaim) · Foto
+DESCRIPTION:Escala confirmada.\n\nFunção: Foto · Fotografia\n\nEscalado
+ s junto:\n• Gusta · Foto (Fotografia) ✅\n• Isa Venerando · Foto (
+ Fotografia) ✅\n• Gabriel Brito · Edição (Fotografia) ✅\n• Juli
+ a Borborema · Captação (Storys) ⏳\n• Noemi  · Captação (Storys)
+  ⏳\n• Noemi  · Edição (Storys) ⏳\n\nApp: https://igabrielbrito.g
+ ithub.io/JNI-Voluntarios/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
+END:VCALENDAR
