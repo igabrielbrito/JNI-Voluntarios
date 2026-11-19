@@ -80,12 +80,13 @@ DTSTAMP:20260101T000000Z
 DTSTART:20261121T230000Z
 DTEND:20261122T010000Z
 SUMMARY:JNI | Criatividade | Edição
-DESCRIPTION:Culto · 20h–22h\n\nStatus: confirmada\n\nFunção: Edição
-  · Fotografia\n\nEscalados junto:\n- Gabriela Antualpa · Foto (Fotograf
- ia) · confirmado\n- Gusta · Edição (Fotografia) · confirmado\n- Katy
-  · Captação (Storys) · pendente\n- Noemi  · Edição (Storys) · pen
- dente\n\nApp: https://igabrielbrito.github.io/JNI-Voluntarios/
-STATUS:CONFIRMED
+DESCRIPTION:Culto · 20h–22h\n\nStatus: pendente. Abra o app para confir
+ mar ou recusar.\n\nFunção: Edição · Fotografia\n\nEscalados junto:\n
+ - Gabriela Antualpa · Foto (Fotografia) · confirmado\n- Gusta · Ediç
+ ão (Fotografia) · confirmado\n- Katy · Captação (Storys) · pendente
+ \n- Noemi  · Edição (Storys) · pendente\n\nApp: https://igabrielbrito
+ .github.io/JNI-Voluntarios/
+STATUS:TENTATIVE
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
