@@ -21,4 +21,17 @@ STATUS:TENTATIVE
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
+BEGIN:VEVENT
+UID:fo-e1795010356340-rebeca@jni-voluntarios
+DTSTAMP:20260101T000000Z
+DTSTART:20261120T110000Z
+DTEND:20261120T130000Z
+SUMMARY:JNI | Criatividade | Fotografia
+DESCRIPTION:RUN TO GLORY - Esportes · 8h–10h\n\nStatus: pendente. Abra 
+ o app para confirmar ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: 
+ https://igabrielbrito.github.io/JNI-Voluntarios/
+STATUS:TENTATIVE
+TRANSP:OPAQUE
+URL:https://igabrielbrito.github.io/JNI-Voluntarios/
+END:VEVENT
 END:VCALENDAR
