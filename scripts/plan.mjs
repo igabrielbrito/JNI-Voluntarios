@@ -39,21 +39,32 @@ function papeis(team, k) {
 
 // quem lidera cada equipe: "Líder na equipe" + acessos fixados (adm vê todas, lid as dele)
 function lideres(state) {
+  // Avisos da equipe vão para quem lidera AQUELA equipe:
+  // - "Líder na equipe" ligado no cadastro dela;
+  // - acesso Líder com a equipe marcada;
+  // - acesso Admin só nas equipes em que a pessoa está cadastrada
+  //   (admin que não está em nenhuma equipe recebe de todas).
   const L = {};
   const acc = (state.auth && state.auth.acc) || {};
-  for (const [k, team] of Object.entries(state.teams || {})) {
+  const teams = state.teams || {};
+  const membro = {};
+  for (const [k, team] of Object.entries(teams)) for (const p of team.people || []) {
+    const tel = dig(p.tel); if (!tel || p.status === "saiu") continue;
+    (membro[tel] = membro[tel] || new Set()).add(k);
+  }
+  for (const [k, team] of Object.entries(teams)) {
     const s = new Set();
     for (const p of team.people || []) {
       const tel = dig(p.tel);
       if (!tel || p.status === "saiu") continue;
       const a = acc[tel];
-      if (a && a.r === "none") continue;
-      if (a && a.r === "vol") continue;
+      if (a && (a.r === "none" || a.r === "vol")) continue;
       if (p.lider || (a && a.r === "adm") || (a && a.r === "lid" && (a.t || []).includes(k))) s.add(tel);
     }
     for (const [tel, a] of Object.entries(acc)) {
-      if (!/^\d{10,11}$/.test(tel)) continue;
-      if (a.r === "adm" || (a.r === "lid" && (a.t || []).includes(k))) s.add(tel);
+      if (!/^\d{10,11}$/.test(tel) || !a) continue;
+      if (a.r === "lid" && (a.t || []).includes(k)) s.add(tel);
+      if (a.r === "adm" && !membro[tel]) s.add(tel);
     }
     L[k] = s;
   }
