@@ -62,18 +62,16 @@ TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
 BEGIN:VEVENT
-UID:fo-e30-gabriel@jni-voluntarios
+UID:fo-e1795010356340-gabriel@jni-voluntarios
 DTSTAMP:20260101T000000Z
-DTSTART:20261121T230000Z
-DTEND:20261122T010000Z
+DTSTART:20261120T110000Z
+DTEND:20261120T130000Z
 SUMMARY:JNI | Criatividade | Edição
-DESCRIPTION:Culto · 20h–22h\n\nStatus: pendente. Abra o app para confir
- mar ou recusar.\n\nFunção: Edição · Fotografia\n\nEscalados junto:\n
- - Gabriela Antualpa · Foto (Fotografia) · confirmado\n- Gusta · Ediç
- ão (Fotografia) · confirmado\n- Katy · Captação (Storys) · pendente
- \n- Noemi  · Edição (Storys) · pendente\n\nApp: https://igabrielbrito
- .github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
+DESCRIPTION:RUN TO GLORY - Esportes · 8h–10h\n\nStatus: confirmada\n\nF
+ unção: Edição · Fotografia\n\nEscalados junto:\n- Rebecca Salviano 
+ · Foto (Fotografia) · pendente\n\nApp: https://igabrielbrito.github.io/
+ JNI-Voluntarios/
+STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
