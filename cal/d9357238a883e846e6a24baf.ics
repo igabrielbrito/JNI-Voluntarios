@@ -76,21 +76,6 @@ TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
 BEGIN:VEVENT
-UID:fo-e29-gabriel@jni-voluntarios
-DTSTAMP:20260101T000000Z
-DTSTART:20261121T210000Z
-DTEND:20261121T223000Z
-SUMMARY:JNI | Criatividade | Edição
-DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: confirmada\n\nFunção: 
- Edição · Fotografia\n\nEscalados junto:\n- Aline Lucato · Foto (Fotog
- rafia) · pendente\n- Thayna · Captação (Storys) · pendente\n- Noemi 
-  · Edição (Storys) · confirmado\n\nApp: https://igabrielbrito.github.
- io/JNI-Voluntarios/
-STATUS:CONFIRMED
-TRANSP:OPAQUE
-URL:https://igabrielbrito.github.io/JNI-Voluntarios/
-END:VEVENT
-BEGIN:VEVENT
 UID:fo-e31-gabriel@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20261128T210000Z
