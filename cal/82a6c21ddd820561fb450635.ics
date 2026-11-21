@@ -14,12 +14,11 @@ DTSTAMP:20260101T000000Z
 DTSTART:20261121T210000Z
 DTEND:20261121T223000Z
 SUMMARY:JNI | Criatividade | Edição
-DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: pendente. Abra o app par
- a confirmar ou recusar.\n\nFunção: Edição · Storys\n\nEscalados junt
- o:\n- Aline Lucato · Foto (Fotografia) · pendente\n- Thayna · Captaç
- ão (Storys) · pendente\n\nApp: https://igabrielbrito.github.io/JNI-Volu
- ntarios/
-STATUS:TENTATIVE
+DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: confirmada\n\nFunção: 
+ Edição · Storys\n\nEscalados junto:\n- Aline Lucato · Foto (Fotografi
+ a) · pendente\n- Thayna · Captação (Storys) · pendente\n\nApp: https
+ ://igabrielbrito.github.io/JNI-Voluntarios/
+STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
@@ -29,12 +28,12 @@ DTSTAMP:20260101T000000Z
 DTSTART:20261121T230000Z
 DTEND:20261122T010000Z
 SUMMARY:JNI | Criatividade | Edição
-DESCRIPTION:Culto · 20h–22h\n\nStatus: pendente. Abra o app para confir
- mar ou recusar.\n\nFunção: Edição · Storys\n\nEscalados junto:\n- Ga
- briela Antualpa · Foto (Fotografia) · confirmado\n- Gusta · Edição (
- Fotografia) · confirmado\n- Katy · Captação (Storys) · pendente\n\nA
- pp: https://igabrielbrito.github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
+DESCRIPTION:Culto · 20h–22h\n\nStatus: confirmada\n\nFunção: Edição
+  · Storys\n\nEscalados junto:\n- Gabriela Antualpa · Foto (Fotografia) 
+ · confirmado\n- Gusta · Edição (Fotografia) · confirmado\n- Katy · 
+ Captação (Storys) · pendente\n\nApp: https://igabrielbrito.github.io/J
+ NI-Voluntarios/
+STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
@@ -44,14 +43,14 @@ DTSTAMP:20260101T000000Z
 DTSTART:20261208T120000Z
 DTEND:20261208T203000Z
 SUMMARY:JNI | Criatividade | Captação/Edição
-DESCRIPTION:Natal Feliz (Manaim) · 9h–17h30\n\nStatus: pendente. Abra o
-  app para confirmar ou recusar.\n\nFunção: Captação e Edição · Sto
- rys\n\nEscalados junto:\n- Gusta · Foto (Fotografia) · confirmado\n- Is
- a Venerando · Foto (Fotografia) · confirmado\n- Gabriel Alves · Foto (
- Fotografia) · confirmado\n- Gabriel Brito · Edição (Fotografia) · co
- nfirmado\n- Julia Borborema · Captação (Storys) · pendente\n\nApp: ht
- tps://igabrielbrito.github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
+DESCRIPTION:Natal Feliz (Manaim) · 9h–17h30\n\nStatus: confirmada\n\nFu
+ nção: Captação e Edição · Storys\n\nEscalados junto:\n- Gusta · F
+ oto (Fotografia) · confirmado\n- Isa Venerando · Foto (Fotografia) · c
+ onfirmado\n- Gabriel Alves · Foto (Fotografia) · confirmado\n- Gabriel 
+ Brito · Edição (Fotografia) · confirmado\n- Julia Borborema · Capta
+ ção (Storys) · pendente\n\nApp: https://igabrielbrito.github.io/JNI-Vo
+ luntarios/
+STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
