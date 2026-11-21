@@ -6,7 +6,7 @@ App de escalas das equipes de voluntários da JNI (Fotografia e Storys).
 - Dados: Firebase Firestore (projeto `jni-voluntarios`). Nada de pessoas, escalas ou fotos fica neste repositório.
 - Para importar um backup: abra o site com `?importar` no fim do endereço.
 
-Versão atual: v2.14.0 (build 63).
+Versão atual: v2.15.0 (build 65).
 
 Agenda automática: o robô gera `cal/<código>.ics` para cada pessoa (código secreto, registrado em `cal/<celular>` no Firestore) e publica aqui. Título "JNI | Criatividade | Fotografia" (ou a função); status na descrição; recusada sai.
 

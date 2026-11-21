@@ -56,6 +56,26 @@ for (const n of out) {
     }
   });
 }
+// convite semanal para instalar o app: quem ativou avisos no navegador do celular (Android) e nunca abriu pelo ícone
+let convites = 0;
+{
+  const { h } = sp(now), semana = Math.floor(now.getTime() / (7 * 864e5));
+  if (!init && h >= 10 && h < 20) {
+    const porTel = {};
+    (await db.collection("push").get()).forEach(d => { const x = d.data(); if (x.tel) (porTel[x.tel] = porTel[x.tel] || []).push(x); });
+    for (const [tel, L] of Object.entries(porTel)) {
+      const celular = L.some(x => /Android|Mobile/i.test(x.ua || "") && !/iPhone|iPad/i.test(x.ua || ""));
+      if (!celular || L.some(x => x.std) || !(tk[tel] || []).length) continue;
+      const key = `inst|${tel}|${semana}`;
+      if (sent[key] || marcar[key]) continue;
+      marcar[key] = now.getTime();
+      if (SECO) { console.log("[teste] convite instalar", tel.slice(-4)); continue; }
+      const r = await admin.messaging().sendEachForMulticast({ tokens: tk[tel] || [], webpush: { notification: { title: "Instale o app JNI 📲", body: "Ele fica na tela inicial e abre direto, como um app. Toque para ver o passo a passo.", icon: SITE + "icons/icon-192.png", tag: "instalar" }, fcmOptions: { link: SITE + "?abrir=instalar" } } });
+      convites += r.successCount;
+    }
+  }
+}
+
 // testes pedidos pelo administrador (sai na hora, mesmo à noite)
 let testes = 0;
 for (const d of (await db.collection("testes").get()).docs) {
@@ -92,7 +112,7 @@ if (!SECO) {
   const novo = podar(Object.assign({}, sent, marcar), now);
   await rRef.set({ v: 2, sent: JSON.stringify(novo), at: now.getTime(), bkl });
 }
-console.log(`Testes: ${testes} · enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
+console.log(`Convites p/ instalar: ${convites} · testes: ${testes} · enviadas: ${ok} · falhas: ${falha} · tokens removidos: ${ruins.size} · sem app instalado: ${semApp}`);
 
 // ---------- agenda assinável de cada pessoa ----------
 // Arquivos em cal/<código>.ics, publicados pelo GitHub Pages. O código é secreto (derivado da chave do robô),
