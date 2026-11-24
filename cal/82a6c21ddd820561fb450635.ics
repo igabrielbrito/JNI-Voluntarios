@@ -59,12 +59,11 @@ DTSTAMP:20260101T000000Z
 DTSTART:20261212T210000Z
 DTEND:20261212T223000Z
 SUMMARY:JNI | Criatividade | Captação/Edição
-DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: pendente. Abra o app par
- a confirmar ou recusar.\n\nFunção: Captação e Edição · Storys\n\nE
- scalados junto:\n- Isa Venerando · Foto (Fotografia) · confirmado\n- Ga
- briel Brito · Edição (Fotografia) · confirmado\n\nApp: https://igabri
- elbrito.github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
+DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: confirmada\n\nFunção: 
+ Captação e Edição · Storys\n\nEscalados junto:\n- Isa Venerando · F
+ oto (Fotografia) · confirmado\n- Gabriel Brito · Edição (Fotografia) 
+ · confirmado\n\nApp: https://igabrielbrito.github.io/JNI-Voluntarios/
+STATUS:CONFIRMED
 TRANSP:OPAQUE
 URL:https://igabrielbrito.github.io/JNI-Voluntarios/
 END:VEVENT
