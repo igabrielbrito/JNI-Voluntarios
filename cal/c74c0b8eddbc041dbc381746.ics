@@ -9,19 +9,6 @@ X-WR-CALDESC:Escalas de Gabriel Alves no JNI Voluntários
 REFRESH-INTERVAL;VALUE=DURATION:PT1H
 X-PUBLISHED-TTL:PT1H
 BEGIN:VEVENT
-UID:fo-e14-gabs@jni-voluntarios
-DTSTAMP:20260101T000000Z
-DTSTART:20260927T010000Z
-DTEND:20260927T033000Z
-SUMMARY:JNI | Criatividade | Fotografia
-DESCRIPTION:Comunhão · 22h–0h30\n\nStatus: pendente. Abra o app para c
- onfirmar ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://igab
- rielbrito.github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
-TRANSP:OPAQUE
-URL:https://igabrielbrito.github.io/JNI-Voluntarios/
-END:VEVENT
-BEGIN:VEVENT
 UID:fo-e1793977666254-gabs@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART;VALUE=DATE:20261107

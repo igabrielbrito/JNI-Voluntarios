@@ -9,19 +9,6 @@ X-WR-CALDESC:Escalas de Isa Venerando no JNI Voluntários
 REFRESH-INTERVAL;VALUE=DURATION:PT1H
 X-PUBLISHED-TTL:PT1H
 BEGIN:VEVENT
-UID:fo-e12-isabely@jni-voluntarios
-DTSTAMP:20260101T000000Z
-DTSTART:20260926T210000Z
-DTEND:20260926T223000Z
-SUMMARY:JNI | Criatividade | Fotografia
-DESCRIPTION:Discipulado · 18h–19h30\n\nStatus: pendente. Abra o app par
- a confirmar ou recusar.\n\nFunção: Foto · Fotografia\n\nApp: https://i
- gabrielbrito.github.io/JNI-Voluntarios/
-STATUS:TENTATIVE
-TRANSP:OPAQUE
-URL:https://igabrielbrito.github.io/JNI-Voluntarios/
-END:VEVENT
-BEGIN:VEVENT
 UID:fo-e23-isabely@jni-voluntarios
 DTSTAMP:20260101T000000Z
 DTSTART:20261031T210000Z
